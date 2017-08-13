@@ -1,0 +1,5 @@
+F:\Projetos\DeutschScript\ConsoleHotKey\bin\Debug\ConsoleHotKey.dll
+F:\Projetos\DeutschScript\ConsoleHotKey\bin\Debug\ConsoleHotKey.pdb
+F:\Projetos\DeutschScript\ConsoleHotKey\obj\Debug\ConsoleHotKey.csprojResolveAssemblyReference.cache
+F:\Projetos\DeutschScript\ConsoleHotKey\obj\Debug\ConsoleHotKey.dll
+F:\Projetos\DeutschScript\ConsoleHotKey\obj\Debug\ConsoleHotKey.pdb

@@ -1,0 +1,14 @@
+F:\Projetos\DeutschScript\DeutschScript\bin\Debug\DeutschScript.exe.config
+F:\Projetos\DeutschScript\DeutschScript\bin\Debug\DeutschScript.exe
+F:\Projetos\DeutschScript\DeutschScript\bin\Debug\DeutschScript.pdb
+F:\Projetos\DeutschScript\DeutschScript\bin\Debug\ConsoleHotKey.dll
+F:\Projetos\DeutschScript\DeutschScript\bin\Debug\LexicalAnalyzer.dll
+F:\Projetos\DeutschScript\DeutschScript\bin\Debug\SemanticParser.dll
+F:\Projetos\DeutschScript\DeutschScript\bin\Debug\SyntaticParser.dll
+F:\Projetos\DeutschScript\DeutschScript\bin\Debug\ConsoleHotKey.pdb
+F:\Projetos\DeutschScript\DeutschScript\bin\Debug\LexicalAnalyzer.pdb
+F:\Projetos\DeutschScript\DeutschScript\bin\Debug\SemanticParser.pdb
+F:\Projetos\DeutschScript\DeutschScript\bin\Debug\SyntaticParser.pdb
+F:\Projetos\DeutschScript\DeutschScript\obj\Debug\DeutschScript.csprojResolveAssemblyReference.cache
+F:\Projetos\DeutschScript\DeutschScript\obj\Debug\DeutschScript.exe
+F:\Projetos\DeutschScript\DeutschScript\obj\Debug\DeutschScript.pdb

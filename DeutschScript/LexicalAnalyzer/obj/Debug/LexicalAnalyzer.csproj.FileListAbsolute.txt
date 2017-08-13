@@ -1,0 +1,5 @@
+F:\Projetos\DeutschScript\LexicalAnalyzer\bin\Debug\LexicalAnalyzer.dll
+F:\Projetos\DeutschScript\LexicalAnalyzer\bin\Debug\LexicalAnalyzer.pdb
+F:\Projetos\DeutschScript\LexicalAnalyzer\obj\Debug\LexicalAnalyzer.csprojResolveAssemblyReference.cache
+F:\Projetos\DeutschScript\LexicalAnalyzer\obj\Debug\LexicalAnalyzer.dll
+F:\Projetos\DeutschScript\LexicalAnalyzer\obj\Debug\LexicalAnalyzer.pdb

@@ -1,0 +1,5 @@
+F:\Projetos\DeutschScript\SyntaticParser\bin\Debug\SyntaticParser.dll
+F:\Projetos\DeutschScript\SyntaticParser\bin\Debug\SyntaticParser.pdb
+F:\Projetos\DeutschScript\SyntaticParser\obj\Debug\SyntacticParser.csprojResolveAssemblyReference.cache
+F:\Projetos\DeutschScript\SyntaticParser\obj\Debug\SyntaticParser.dll
+F:\Projetos\DeutschScript\SyntaticParser\obj\Debug\SyntaticParser.pdb

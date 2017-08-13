@@ -1,0 +1,4 @@
+F:\Projetos\DeutschScript\SemanticParser\bin\Debug\SemanticParser.dll
+F:\Projetos\DeutschScript\SemanticParser\bin\Debug\SemanticParser.pdb
+F:\Projetos\DeutschScript\SemanticParser\obj\Debug\SemanticParser.dll
+F:\Projetos\DeutschScript\SemanticParser\obj\Debug\SemanticParser.pdb
