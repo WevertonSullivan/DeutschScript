@@ -1,0 +1,17 @@
+$ -> Comentários
+alle -> int
+text -> string
+real -> real
+logisch -> boolean
+leer -> void
+haupt -> main
+show -> print
+lesen -> ler
+wenn -> if
+sonst -> else
+zum -> for
+out -> return
+[] -> ()
+<<>> -> {}
+. -> ;
+# -> '

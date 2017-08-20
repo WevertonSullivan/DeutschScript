@@ -1,0 +1,10 @@
+leer haupt[]<<
+	alle x.
+	x = 1.
+	wenn[x == 1]<<
+		show[#Igual 1#].
+	>>
+	sonst<<
+		show[#Diferente de 1#].
+	>>
+>>
