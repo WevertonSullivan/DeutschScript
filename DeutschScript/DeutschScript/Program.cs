@@ -10,21 +10,25 @@ namespace DeutschScript
     {
 
         static string script = "";
-        ParserLexical parserLexical = new ParserLexical();
+        ParserLexical parserLexical = new ParserLexical();        
 
         static void Main(string[] args)
         {
-            while (true)
-            {
-                Header();
-                Console.Write(script);
-                script += Console.ReadLine();
-                script += "\n";
-                saveScript();
-            }
+            //while (true)
+            //{
+            //    Header();
+            //    Console.Write(script);
+            //    script += Console.ReadLine();
+            //    script += "\n";
+            //    saveScript();
+            //}
 
-            Console.WriteLine("Saindo");
-            Console.ReadKey();
+            //Console.WriteLine("Saindo");
+            //Console.ReadKey();
+
+            string url = @"F:\Projetos\DeutschScript\DeutschScript\DeutschScript\Files\DeutschScript.ds";
+            StreamReader file = new StreamReader(url);
+            ParserLexical.parser(file);
         }
 
         static void HotKeyManager_HotKeyPressed(object sender, HotKeyEventArgs e)
