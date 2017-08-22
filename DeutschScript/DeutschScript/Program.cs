@@ -1,19 +1,19 @@
-﻿using System;
-using System.Windows.Forms;
-using ConsoleHotKey;
-using System.IO;
+﻿using ConsoleHotKey;
 using LexicalAnalyzer;
+using System;
+using System.IO;
 
 namespace DeutschScript
 {
     class Program
     {
 
-        static string script = "";
-        ParserLexical parserLexical = new ParserLexical();        
+        static string script = "";        
 
         static void Main(string[] args)
         {
+            ParserLexical parserLexical = new ParserLexical();
+
             //while (true)
             //{
             //    Header();
@@ -25,10 +25,10 @@ namespace DeutschScript
 
             //Console.WriteLine("Saindo");
             //Console.ReadKey();
-
             string url = @"F:\Projetos\DeutschScript\DeutschScript\DeutschScript\Files\DeutschScript.ds";
             StreamReader file = new StreamReader(url);
-            ParserLexical.parser(file);
+            ParserLexical.parser(file).ToString();
+            Console.Read();
         }
 
         static void HotKeyManager_HotKeyPressed(object sender, HotKeyEventArgs e)

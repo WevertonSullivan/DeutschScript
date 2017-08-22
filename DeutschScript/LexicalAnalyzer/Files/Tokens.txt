@@ -4,16 +4,10 @@ text
 real
 logisch
 leer
-haupt
 show
 lesen
 wenn
 sonst
 zum
 out
-[
-]
-<<
->>
-. 
 #

@@ -40,12 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class.cs" />
     <Compile Include="ParserLexical.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Token.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Tokens\Tokens.txt" />
+    <Content Include="Files\Delimiters.txt" />
+    <Content Include="Files\Operators.txt" />
+    <Content Include="Files\Tokens.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
