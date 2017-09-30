@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyntacticParser", "SyntaticParser\SyntacticParser.csproj", "{0DE73BEF-855A-444A-AC2E-412EAFFD812F}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleHotKey", "ConsoleHotKey\ConsoleHotKey.csproj", "{1251A0CF-B90F-4F3F-9151-3DCC321556C3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeutschScript", "DeutschScript\DeutschScript.csproj", "{75F4E160-8160-421E-A7CA-417F1E4046EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Errors", "Errors\Errors.csproj", "{5D54A315-EB2F-4C19-8EA5-F4A0A8063AFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,8 +41,15 @@ Global
 		{75F4E160-8160-421E-A7CA-417F1E4046EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75F4E160-8160-421E-A7CA-417F1E4046EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75F4E160-8160-421E-A7CA-417F1E4046EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D54A315-EB2F-4C19-8EA5-F4A0A8063AFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D54A315-EB2F-4C19-8EA5-F4A0A8063AFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D54A315-EB2F-4C19-8EA5-F4A0A8063AFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D54A315-EB2F-4C19-8EA5-F4A0A8063AFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {470551D6-70F7-4124-A2D2-E3E647E1E5DB}
 	EndGlobalSection
 EndGlobal

@@ -1,10 +1,11 @@
 leer haupt [ ] <<
-	alle x .
-	x <- 1 .
-	wenn [ x == 1 ] <<
-		show [ #Igual 1# ] . 
-	>>
-	sonst <<
-		show [ #Diferente de 1# ] .
-	>>
+     alle a , b .
+
+     a <- 10 + b .
+
+     a <- #teste string# .
+
+     b <- T .
+
+     c <- 3.4 + a .
 >>

@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0DE73BEF-855A-444A-AC2E-412EAFFD812F}</ProjectGuid>
+    <ProjectGuid>{5D54A315-EB2F-4C19-8EA5-F4A0A8063AFE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SyntaticParser</RootNamespace>
-    <AssemblyName>SyntaticParser</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>Errors</RootNamespace>
+    <AssemblyName>Errors</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -40,14 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ParserSyntatic.cs" />
+    <Compile Include="Error.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Errors\Errors.csproj">
-      <Project>{5d54a315-eb2f-4c19-8ea5-f4a0a8063afe}</Project>
-      <Name>Errors</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LexicalAnalyzer\LexicalAnalyzer.csproj">
       <Project>{51591A93-E13E-41F3-8C1B-4E8A2646B56F}</Project>
       <Name>LexicalAnalyzer</Name>
