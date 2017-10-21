@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Files\Delimiters.txt" />
+    <Content Include="Files\Grammar.txt" />
     <Content Include="Files\Operators.txt" />
     <Content Include="Files\Tokens.txt" />
   </ItemGroup>

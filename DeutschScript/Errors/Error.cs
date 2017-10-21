@@ -11,24 +11,25 @@ namespace Errors
             SintaticError
         };
 
-        string msg;
+        string msg, typeError, expectedToken;
         int line, column;
         Token token;
-        private string typeError;
 
         public string Msg { get => msg; set => msg = value; }
+        public string TypeError { get => typeError; set => typeError = value; }
+        public string ExpectedToken { get => expectedToken; set => expectedToken = value; }
         public int Line { get => line; set => line = value; }
         public int Column { get => column; set => column = value; }
         public Token Token { get => token; set => token = value; }
-        public string TypeError { get => typeError; set => typeError = value; }
 
-        public Error(string msg, int line, int column, Token token, string typeError)
+        public Error(string msg,string expectedToken, Token token, string typeError)
         {
             Msg = msg;
-            Line = line;
-            Column = column;
+            Line = token.Line;
+            Column = token.Column;
             Token = token;
             TypeError = typeError;
+            ExpectedToken = expectedToken;
         }
     }
 }

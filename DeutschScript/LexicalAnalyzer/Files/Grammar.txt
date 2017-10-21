@@ -1,0 +1,25 @@
+﻿<funcs>    ::= <func> <funcs> | 
+<func>    ::= <tipo> id '[' <params> ']' '<<' <comans> '>>'
+<tipo>    ::= 'alle' | 'leer' | 'text' | 'real' | 'logisch'
+<params>  ::= <param> <params2> | 
+<params2> ::= ',' <param> <params2> |
+<param>   ::= <tipo> id
+<comans>  ::= <coman> <comans> |
+<coman>   ::= <decl> '.' | <atrib> '.' | <leitura> '.' | <escrita> '.' | <cond> | <laco> | <retorno> '.' | <chamada> '.'
+<decl>    ::= <tipo> <ids>
+<ids>     ::= id <ids2>
+<ids2>    ::= ',' id <ids2> | 
+<atrib>   ::= id '<-' <exp>
+<exp>     ::= <operan> <exp2>
+<exp2>    ::=  | <op> <operan>
+<operan>  ::= id | cli | clr | cls | cll |  <chamada>
+<op>      ::= '+' | '-' | '*' | '/' | '&' | '|' | '>' | '<' | '>=' | '<=' | '=' | '<>' | '@'
+<leitura> ::= 'lessen' '[' id ']'
+<escrita> ::= 'show' '[' <exp> ']'
+<cond>    ::= 'wenn' '[' <exp> ']' '<<' <comans> '>>' <senao>
+<senao>   ::=  | 'sont' '<<' <comans> '>>'
+<laco>    ::= 'zum' '[' <exp> ']' '<<' <comans> '>>'
+<retorno> ::= 'out' <exp>
+<chamada> ::= id '[' <args> ']'
+<args>    ::=  | <operan> <args2>
+<args2>   ::=  | ',' <operan> <args2>

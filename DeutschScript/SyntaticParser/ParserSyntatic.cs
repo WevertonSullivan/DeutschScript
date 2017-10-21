@@ -16,6 +16,7 @@ namespace SyntaticParser
             this.tokens = tokens;
             token = new Token();
             controlToken = 0;
+            errors = new List<Error>();
         }
 
         public void parse()
@@ -28,9 +29,21 @@ namespace SyntaticParser
         /// </summary>
         private void _funcs()
         {
-            _func();
-            _funcs();
-            return;
+            if (token.Image == "alle" || token.Image == "leer" || token.Image == "text" || token.Image == "real" || token.Image == "logisch")
+            {
+                _func();
+                _funcs();
+                return;
+            }
+            else if (token.Image == string.Empty)
+            {
+                readToken();
+                return;
+            }
+            else
+            {
+                errors.Add(new Error("Erro ao validar token, esperado: {alle, leer, text, real, logisch}.", "alle || leer || text || real || logisch", token, "SyntaticError"));
+            }
         }
 
         /// <summary>
@@ -39,7 +52,7 @@ namespace SyntaticParser
         private void _func()
         {
             _tipo();
-            if (token.Kind.ToLower() == "id")
+            if (token.Kind == "ID")
             {
                 readToken();
                 if (token.Image == "[")
@@ -58,9 +71,29 @@ namespace SyntaticParser
                                 readToken();
                                 return;
                             }
+                            else
+                            {
+                                errors.Add(new Error("Erro ao validar token, esperado: {>>}.", ">>", token, "SyntaticError"));
+                            }
+                        }
+                        else
+                        {
+                            errors.Add(new Error("Erro ao validar token, esperado: {<<}.", "<<", token, "SyntaticError"));
                         }
                     }
+                    else
+                    {
+                        errors.Add(new Error("Erro ao validar token, esperado: ']'.", "]", token, "SyntaticError"));
+                    }
                 }
+                else
+                {
+                    errors.Add(new Error("Erro ao validar token, esperado: '['.", "[", token, "SyntaticError"));
+                }
+            }
+            else
+            {
+                errors.Add(new Error("Erro ao validar token, esperado: {id}.", "Classe{ID}", token, "SyntaticError"));
             }
         }
 
@@ -94,6 +127,10 @@ namespace SyntaticParser
                 readToken();
                 return;
             }
+            else
+            {
+                errors.Add(new Error("Erro ao validar token, esperado: {alle, leer, text, real, logisch}.", "alle || leer || text || real || logisch", token, "SyntaticError"));
+            }
         }
 
         /// <summary>
@@ -101,9 +138,20 @@ namespace SyntaticParser
         /// </summary>
         private void _params()
         {
-            _param();
-            _params2();
-            return;
+            if (token.Image == "alle" || token.Image == "leer" || token.Image == "text" || token.Image == "real" || token.Image == "logisch")
+            {
+                _param();
+                _params2();
+                return;
+            }else if(token.Image == string.Empty)
+            {
+                readToken();
+                return;
+            }
+            else
+            {
+                errors.Add(new Error("Erro ao validar token, esperado: {ID}.", "Classe{ID}", token, "SyntaticError"));
+            }
         }
 
         /// <summary>
@@ -118,6 +166,15 @@ namespace SyntaticParser
                 _params2();
                 return;
             }
+            else if (token.Image == string.Empty)
+            {
+                readToken();
+                return;
+            }
+            else
+            {
+                errors.Add(new Error("Erro ao validar token, esperado: {,}.", "{,}", token, "SyntaticError"));
+            }
         }
 
         /// <summary>
@@ -126,7 +183,7 @@ namespace SyntaticParser
         private void _param()
         {
             _tipo();
-            if (token.Kind.ToLower() == "id")
+            if (token.Kind == "ID")
             {
                 readToken();
                 return;
@@ -138,9 +195,12 @@ namespace SyntaticParser
         /// </summary>
         private void _comans()
         {
-            _coman();
-            _comans();
-            return;
+            if (token.Image == "alle" || token.Image == "leer" || token.Image == "text" || token.Image == "real" || token.Image == "logisch")
+            {
+                _coman();
+                _comans();
+                return;
+            }
         }
 
         /// <summary>
@@ -148,69 +208,85 @@ namespace SyntaticParser
         /// </summary>
         private void _coman()
         {
-            _decl();
-            if (token.Image == ".")
+            if (token.Image == "alle" || token.Image == "leer" || token.Image == "text" || token.Image == "real" || token.Image == "logisch")
             {
-                readToken();
-                return;
+                _decl();
+                if (token.Image == ".")
+                {
+                    readToken();
+                    return;
+                }
             }
-            //else
-            //{
-            _atrib();
-            if (token.Image == ".")
+            else if (token.Kind== "ID")
             {
-                readToken();
-                return;
+                if (lookaHead().Image == "<-")
+                {
+                    _atrib();
+                    if (token.Image == ".")
+                    {
+                        readToken();
+                        return;
+                    }
+                }
+                else if (lookaHead().Image == "[")
+                {
+                    _chamada();
+                    if (token.Image == ".")
+                    {
+                        readToken();
+                        return;
+                    }
+                }
+                else
+                {
+                    //TODO: ERROS
+                }
             }
-            //else
-            //{
-            _leitura();
-            if (token.Image == ".")
+            else if (token.Image == "lessen")
             {
-                readToken();
-                return;
+                _leitura();
+                if (token.Image == ".")
+                {
+                    readToken();
+                    return;
+                }
             }
-            //else
-            //{
-            _escrita();
-            if (token.Image == ".")
+            else if (token.Image == "show")
             {
-                readToken();
-                return;
+                _escrita();
+                if (token.Image == ".")
+                {
+                    readToken();
+                    return;
+                }
             }
-            //else
-            //{
-            _cond();
-            _laco();
-            _retorno();
-            if (token.Image == ".")
+            else if (token.Image == "wenn")
             {
-                readToken();
-                return;
+                _cond();
             }
-            //else
-            //{
-            _chamada();
-            if (token.Image == ".")
+            else if (token.Image == "zum")
             {
-                readToken();
-                return;
+                _laco();
             }
-            //}
-            //}
-            //}
-            //}
-            //}
-        }
+            else if (token.Image == "out")
+            {
+                _retorno();
+                if (token.Image == ".")
+                {
+                    readToken();
+                    return;
+                }
+            }
+        }        
 
         /// <summary>
         /// <decl>    ::= <tipo> <ids>
         /// </summary>
         private void _decl()
         {
-            _tipo();
-            _ids();
-            return;
+                _tipo();
+                _ids();
+                return;
         }
 
         /// <summary>
@@ -218,7 +294,7 @@ namespace SyntaticParser
         /// </summary>
         private void _ids()
         {
-            if (token.Kind.ToLower() == "id")
+            if (token.Kind == "ID")
             {
                 readToken();
                 _ids2();
@@ -234,7 +310,16 @@ namespace SyntaticParser
             if (token.Image == ",")
             {
                 readToken();
-                return;
+                if (token.Kind == "ID")
+                {
+                    readToken();
+                    _ids2();
+                    return;
+                }
+                else if (token.Image == string.Empty)
+                {
+                    return;
+                }
             }
         }
 
@@ -260,9 +345,12 @@ namespace SyntaticParser
         /// </summary>
         private void _exp()
         {
-            _operan();
-            _exp2();
-            return;
+            if (token.Kind == "ID" || token.Kind == "CLI" || token.Kind == "CLS" || token.Kind == "CLL")
+            {
+                _operan();
+                _exp2();
+                return;
+            }
         }
 
         /// <summary>
@@ -271,10 +359,14 @@ namespace SyntaticParser
         private void _exp2()
         {
             //vazio?
-
-            _op();
-            _operan();
-            return;
+            if (token.Image == "+" || token.Image == "-" || token.Image == "*" || token.Image == "/" || token.Image == "&"
+             || token.Image == "|" || token.Image == ">" || token.Image == "<" || token.Image == ">=" || token.Image == "<="
+             || token.Image == "=" || token.Image == "<>" || token.Image == "@")
+            {
+                _op();
+                _operan();
+                return;
+            }
         }
 
         /// <summary>
@@ -282,9 +374,12 @@ namespace SyntaticParser
         /// </summary>
         private void _operan()
         {
-            if (token.Kind.ToLower() == "id" || token.Kind.ToLower() == "cli" || token.Kind.ToLower() == "cls" || token.Kind.ToLower() == "cll")
+            if (token.Kind == "ID" || token.Kind == "CLI" || token.Kind == "CLS" || token.Kind== "CLL")
             {
                 readToken();
+            }
+            else
+            {
                 _chamada();
             }
         }
@@ -308,16 +403,16 @@ namespace SyntaticParser
         /// </summary>
         private void _leitura()
         {
-            if(token.Image =="lessen")
+            if (token.Image == "lessen")
             {
                 readToken();
-                if(token.Image == "[")
+                if (token.Image == "[")
                 {
                     readToken();
-                    if(token.Kind.ToLower() == "id")
+                    if (token.Kind.ToLower() == "id")
                     {
                         readToken();
-                        if(token.Image=="]")
+                        if (token.Image == "]")
                         {
                             readToken();
                             return;
@@ -333,14 +428,14 @@ namespace SyntaticParser
         /// </summary>
         private void _escrita()
         {
-            if(token.Image == "show")
+            if (token.Image == "show")
             {
                 readToken();
-                if(token.Image =="[")
+                if (token.Image == "[")
                 {
                     readToken();
                     _exp();
-                    if(token.Image == "]")
+                    if (token.Image == "]")
                     {
                         readToken();
                         return;
@@ -354,21 +449,21 @@ namespace SyntaticParser
         /// </summary>
         private void _cond()
         {
-            if(token.Image =="wenn")
+            if (token.Image == "wenn")
             {
                 readToken();
-                if(token.Image == "[")
+                if (token.Image == "[")
                 {
                     readToken();
                     _exp();
-                    if(token.Image == "]")
+                    if (token.Image == "]")
                     {
                         readToken();
-                        if(token.Image == "<<")
+                        if (token.Image == "<<")
                         {
                             readToken();
                             _comans();
-                            if(token.Image == ">>")
+                            if (token.Image == ">>")
                             {
                                 readToken();
                                 _senao();
@@ -384,14 +479,14 @@ namespace SyntaticParser
         /// </summary>
         private void _senao()
         {
-            if(token.Image == "sonst")
+            if (token.Image == "sonst")
             {
                 readToken();
-                if(token.Image =="<<")
+                if (token.Image == "<<")
                 {
                     readToken();
                     _comans();
-                    if(token.Image == ">>")
+                    if (token.Image == ">>")
                     {
                         readToken();
                         return;
@@ -405,21 +500,21 @@ namespace SyntaticParser
         /// </summary>
         private void _laco()
         {
-            if(token.Image == "zum")
+            if (token.Image == "zum")
             {
                 readToken();
-                if(token.Image =="[")
+                if (token.Image == "[")
                 {
                     readToken();
                     _exp();
-                    if(token.Image =="]")
+                    if (token.Image == "]")
                     {
                         readToken();
-                        if(token.Image =="<<")
+                        if (token.Image == "<<")
                         {
                             readToken();
                             _comans();
-                            if(token.Image ==">>")
+                            if (token.Image == ">>")
                             {
                                 readToken();
                                 return;
@@ -427,7 +522,7 @@ namespace SyntaticParser
                         }
                     }
 
-                }                
+                }
             }
         }
 
@@ -436,7 +531,7 @@ namespace SyntaticParser
         /// </summary>
         private void _retorno()
         {
-            if(token.Image == "out")
+            if (token.Image == "out")
             {
                 readToken();
                 _exp();
@@ -448,7 +543,7 @@ namespace SyntaticParser
         /// </summary>
         private void _chamada()
         {
-            if (token.Kind == "id")
+            if (token.Kind == "ID")
             {
                 readToken();
                 if (token.Image == "[")
@@ -469,9 +564,12 @@ namespace SyntaticParser
         /// </summary>
         private void _args()
         {
-            _operan();
-            _args2();
-            return;
+            if (token.Kind == "ID" || token.Kind == "CLI" || token.Kind == "CLS" || token.Kind == "CLL")
+            {
+                _operan();
+                _args2();
+                return;
+            }
         }
 
         /// <summary>
@@ -491,6 +589,11 @@ namespace SyntaticParser
         private void readToken()
         {
             token = tokens[controlToken++];
+        }
+
+        private Token lookaHead()
+        {
+            return tokens[controlToken];
         }
     }
 }
