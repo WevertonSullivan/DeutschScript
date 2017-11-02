@@ -1,5 +1,6 @@
 ﻿using LexicalAnalyzer;
 using System.Collections.Generic;
+using System.Text;
 using Errors;
 
 namespace SyntaticParser
@@ -9,18 +10,18 @@ namespace SyntaticParser
         private List<Token> tokens;
         private Token token;
         private int controlToken;
-        private List<Error> errors;
+        private List<Error> errors = new List<Error>();
 
         public ParserSyntatic(List<Token> tokens)
         {
             this.tokens = tokens;
-            token = new Token();
             controlToken = 0;
             errors = new List<Error>();
         }
 
         public void parse()
         {
+            readToken();
             _funcs();
         }
 
@@ -33,16 +34,6 @@ namespace SyntaticParser
             {
                 _func();
                 _funcs();
-                return;
-            }
-            else if (token.Image == string.Empty)
-            {
-                readToken();
-                return;
-            }
-            else
-            {
-                errors.Add(new Error("Erro ao validar token, esperado: {alle, leer, text, real, logisch}.", "alle || leer || text || real || logisch", token, "SyntaticError"));
             }
         }
 
@@ -69,7 +60,6 @@ namespace SyntaticParser
                             if (token.Image == ">>")
                             {
                                 readToken();
-                                return;
                             }
                             else
                             {
@@ -105,27 +95,22 @@ namespace SyntaticParser
             if (token.Image == "alle")
             {
                 readToken();
-                return;
             }
             else if (token.Image == "leer")
             {
                 readToken();
-                return;
             }
             else if (token.Image == "text")
             {
                 readToken();
-                return;
             }
             else if (token.Image == "real")
             {
                 readToken();
-                return;
             }
             else if (token.Image == "logisch")
             {
                 readToken();
-                return;
             }
             else
             {
@@ -142,15 +127,6 @@ namespace SyntaticParser
             {
                 _param();
                 _params2();
-                return;
-            }else if(token.Image == string.Empty)
-            {
-                readToken();
-                return;
-            }
-            else
-            {
-                errors.Add(new Error("Erro ao validar token, esperado: {ID}.", "Classe{ID}", token, "SyntaticError"));
             }
         }
 
@@ -164,17 +140,10 @@ namespace SyntaticParser
                 readToken();
                 _param();
                 _params2();
-                return;
+
             }
-            else if (token.Image == string.Empty)
-            {
-                readToken();
-                return;
-            }
-            else
-            {
-                errors.Add(new Error("Erro ao validar token, esperado: {,}.", "{,}", token, "SyntaticError"));
-            }
+
+
         }
 
         /// <summary>
@@ -186,7 +155,7 @@ namespace SyntaticParser
             if (token.Kind == "ID")
             {
                 readToken();
-                return;
+
             }
         }
 
@@ -195,11 +164,12 @@ namespace SyntaticParser
         /// </summary>
         private void _comans()
         {
-            if (token.Image == "alle" || token.Image == "leer" || token.Image == "text" || token.Image == "real" || token.Image == "logisch")
+            if (token.Image == "alle" || token.Image == "leer" || token.Image == "text" || token.Image == "real" || token.Image == "logisch" ||
+                token.Kind == "ID" || token.Image == "lessen" || token.Image == "show" || token.Image == "wenn" || token.Image == "zum" || token.Image == "out")
             {
                 _coman();
                 _comans();
-                return;
+
             }
         }
 
@@ -214,10 +184,14 @@ namespace SyntaticParser
                 if (token.Image == ".")
                 {
                     readToken();
-                    return;
+
+                }
+                else
+                {
+                    errors.Add(new Error("Erro ao validar token, esperado: {.}.", ".", token, "SyntaticError"));
                 }
             }
-            else if (token.Kind== "ID")
+            else if (token.Kind == "ID")
             {
                 if (lookaHead().Image == "<-")
                 {
@@ -225,7 +199,11 @@ namespace SyntaticParser
                     if (token.Image == ".")
                     {
                         readToken();
-                        return;
+
+                    }
+                    else
+                    {
+                        errors.Add(new Error("Erro ao validar token, esperado: {.}.", ".", token, "SyntaticError"));
                     }
                 }
                 else if (lookaHead().Image == "[")
@@ -234,12 +212,16 @@ namespace SyntaticParser
                     if (token.Image == ".")
                     {
                         readToken();
-                        return;
+
+                    }
+                    else
+                    {
+                        errors.Add(new Error("Erro ao validar token, esperado: {.}.", ".", token, "SyntaticError"));
                     }
                 }
                 else
                 {
-                    //TODO: ERROS
+                    errors.Add(new Error("Erro ao validar token, esperado: {<- ou [}.", "{<-, [}", token, "SyntaticError"));
                 }
             }
             else if (token.Image == "lessen")
@@ -248,7 +230,10 @@ namespace SyntaticParser
                 if (token.Image == ".")
                 {
                     readToken();
-                    return;
+                }
+                else
+                {
+                    errors.Add(new Error("Erro ao validar token, esperado: {.}.", ".", token, "SyntaticError"));
                 }
             }
             else if (token.Image == "show")
@@ -257,7 +242,10 @@ namespace SyntaticParser
                 if (token.Image == ".")
                 {
                     readToken();
-                    return;
+                }
+                else
+                {
+                    errors.Add(new Error("Erro ao validar token, esperado: {.}.", ".", token, "SyntaticError"));
                 }
             }
             else if (token.Image == "wenn")
@@ -274,19 +262,27 @@ namespace SyntaticParser
                 if (token.Image == ".")
                 {
                     readToken();
-                    return;
+                }
+                else
+                {
+                    errors.Add(new Error("Erro ao validar token, esperado: {.}.", ".", token, "SyntaticError"));
                 }
             }
-        }        
+            else
+            {
+                errors.Add(new Error("Erro ao validar token, esperado: {alle, leer, text, real, logisch, ID, lessen, show, wenn, zum ou out}.", "{alle, leer, text, real, logisch, ID, lessen, show, wenn, zum ou out}", token, "SyntaticError"));
+
+            }
+        }
 
         /// <summary>
         /// <decl>    ::= <tipo> <ids>
         /// </summary>
         private void _decl()
         {
-                _tipo();
-                _ids();
-                return;
+            _tipo();
+            _ids();
+
         }
 
         /// <summary>
@@ -298,7 +294,7 @@ namespace SyntaticParser
             {
                 readToken();
                 _ids2();
-                return;
+
             }
         }
 
@@ -314,11 +310,11 @@ namespace SyntaticParser
                 {
                     readToken();
                     _ids2();
-                    return;
+
                 }
-                else if (token.Image == string.Empty)
+                else
                 {
-                    return;
+                    errors.Add(new Error("Erro ao validar token, esperado: {ID}.", "ID", token, "SyntaticError"));
                 }
             }
         }
@@ -328,15 +324,23 @@ namespace SyntaticParser
         /// </summary>
         private void _atrib()
         {
-            if (token.Kind.ToLower() == "id")
+            if (token.Kind == "ID")
             {
                 readToken();
                 if (token.Image == "<-")
                 {
                     readToken();
                     _exp();
-                    return;
+
                 }
+                else
+                {
+                    errors.Add(new Error("Erro ao validar token, esperado: {<-}.", "<-", token, "SyntaticError"));
+                }
+            }
+            else
+            {
+                errors.Add(new Error("Erro ao validar token, esperado: {ID}.", "ID", token, "SyntaticError"));
             }
         }
 
@@ -345,12 +349,10 @@ namespace SyntaticParser
         /// </summary>
         private void _exp()
         {
-            if (token.Kind == "ID" || token.Kind == "CLI" || token.Kind == "CLS" || token.Kind == "CLL")
-            {
-                _operan();
-                _exp2();
-                return;
-            }
+            _operan();
+            _exp2();
+
+
         }
 
         /// <summary>
@@ -365,7 +367,7 @@ namespace SyntaticParser
             {
                 _op();
                 _operan();
-                return;
+
             }
         }
 
@@ -374,13 +376,24 @@ namespace SyntaticParser
         /// </summary>
         private void _operan()
         {
-            if (token.Kind == "ID" || token.Kind == "CLI" || token.Kind == "CLS" || token.Kind== "CLL")
+            if (token.Kind == "ID")
+            {
+                if (lookaHead().Image == "[")
+                {
+                    _chamada();
+                }
+                else
+                {
+                    readToken();
+                }
+            }
+            else if (token.Kind == "CLI" || token.Kind == "CLS" || token.Kind == "CLL" || token.Kind == "CLR")
             {
                 readToken();
             }
             else
             {
-                _chamada();
+                errors.Add(new Error("Erro ao validar token, esperado: {ID, CLI, CLS ou CLL}.", "{ID, CLI, CLS, CLL}", token, "SyntaticError"));
             }
         }
 
@@ -394,7 +407,7 @@ namespace SyntaticParser
             || token.Image == "=" || token.Image == "<>" || token.Image == "@")
             {
                 readToken();
-                return;
+
             }
         }
 
@@ -409,17 +422,32 @@ namespace SyntaticParser
                 if (token.Image == "[")
                 {
                     readToken();
-                    if (token.Kind.ToLower() == "id")
+                    if (token.Kind == "ID")
                     {
                         readToken();
                         if (token.Image == "]")
                         {
                             readToken();
-                            return;
+
+                        }
+                        else
+                        {
+                            errors.Add(new Error("Erro ao validar token, esperado: {]}.", "]", token, "SyntaticError"));
                         }
                     }
-
+                    else
+                    {
+                        errors.Add(new Error("Erro ao validar token, esperado: {ID}", "ID", token, "SyntaticError"));
+                    }
                 }
+                else
+                {
+                    errors.Add(new Error("Erro ao validar token, esperado: {[}", "]", token, "SyntaticError"));
+                }
+            }
+            else
+            {
+                errors.Add(new Error("Erro ao validar token, esperado: {lessen}", "lessen", token, "SyntaticError"));
             }
         }
 
@@ -438,9 +466,21 @@ namespace SyntaticParser
                     if (token.Image == "]")
                     {
                         readToken();
-                        return;
+
+                    }
+                    else
+                    {
+                        errors.Add(new Error("Erro ao validar token, esperado: {]}", "]", token, "SyntaticError"));
                     }
                 }
+                else
+                {
+                    errors.Add(new Error("Erro ao validar token, esperado: {[}", "[", token, "SyntaticError"));
+                }
+            }
+            else
+            {
+                errors.Add(new Error("Erro ao validar token, esperado: {show}", "show", token, "SyntaticError"));
             }
         }
 
@@ -468,10 +508,15 @@ namespace SyntaticParser
                                 readToken();
                                 _senao();
                             }
+                            else { errors.Add(new Error("Erro ao validar token, esperado: {>>}", ">>", token, "SyntaticError")); }
                         }
+                        else { errors.Add(new Error("Erro ao validar token, esperado: {<<}", "<<", token, "SyntaticError")); }
                     }
+                    else { errors.Add(new Error("Erro ao validar token, esperado: {]}", "]", token, "SyntaticError")); }
                 }
+                else { errors.Add(new Error("Erro ao validar token, esperado: {[}", "[", token, "SyntaticError")); }
             }
+            else { errors.Add(new Error("Erro ao validar token, esperado: {wenn}", "wenn", token, "SyntaticError")); }
         }
 
         /// <summary>
@@ -489,9 +534,11 @@ namespace SyntaticParser
                     if (token.Image == ">>")
                     {
                         readToken();
-                        return;
+
                     }
+                    else { errors.Add(new Error("Erro ao validar token, esperado: {>>}", ">>", token, "SyntaticError")); }
                 }
+                else { errors.Add(new Error("Erro ao validar token, esperado: {<<}", "<<", token, "SyntaticError")); }
             }
         }
 
@@ -517,13 +564,17 @@ namespace SyntaticParser
                             if (token.Image == ">>")
                             {
                                 readToken();
-                                return;
-                            }
-                        }
-                    }
 
+                            }
+                            else { errors.Add(new Error("Erro ao validar token, esperado: {>>}", ">>", token, "SyntaticError")); }
+                        }
+                        else { errors.Add(new Error("Erro ao validar token, esperado: {<<}", "<<", token, "SyntaticError")); }
+                    }
+                    else { errors.Add(new Error("Erro ao validar token, esperado: {]}", "]", token, "SyntaticError")); }
                 }
+                else { errors.Add(new Error("Erro ao validar token, esperado: {[}", "[", token, "SyntaticError")); }
             }
+            else { errors.Add(new Error("Erro ao validar token, esperado: {zum}", "zum", token, "SyntaticError")); }
         }
 
         /// <summary>
@@ -535,6 +586,10 @@ namespace SyntaticParser
             {
                 readToken();
                 _exp();
+            }
+            else
+            {
+                errors.Add(new Error("Erro ao validar token, esperado: {out}", "out", token, "SyntaticError"));
             }
         }
 
@@ -553,10 +608,13 @@ namespace SyntaticParser
                     if (token.Image == "]")
                     {
                         readToken();
-                        return;
+
                     }
+                    else { errors.Add(new Error("Erro ao validar token, esperado: {]}", "]", token, "SyntaticError")); }
                 }
+                else { errors.Add(new Error("Erro ao validar token, esperado: {[}", "[", token, "SyntaticError")); }
             }
+            else { errors.Add(new Error("Erro ao validar token, esperado: {ID}", "ID", token, "SyntaticError")); }
         }
 
         /// <summary>
@@ -564,11 +622,11 @@ namespace SyntaticParser
         /// </summary>
         private void _args()
         {
-            if (token.Kind == "ID" || token.Kind == "CLI" || token.Kind == "CLS" || token.Kind == "CLL")
+            if (token.Kind == "ID" || token.Kind == "CLI" || token.Kind == "CLS" || token.Kind == "CLL" || token.Kind == "CLR")
             {
                 _operan();
                 _args2();
-                return;
+
             }
         }
 
@@ -582,7 +640,7 @@ namespace SyntaticParser
                 readToken();
                 _operan();
                 _args2();
-                return;
+
             }
         }
 
@@ -594,6 +652,23 @@ namespace SyntaticParser
         private Token lookaHead()
         {
             return tokens[controlToken];
+        }
+
+        public bool inError()
+        {
+            return (errors.Count > 0 ? true : false);
+        }
+
+        public string errorsToString()
+        {
+            StringBuilder text = new StringBuilder();
+
+            foreach(Error error in errors)
+            {
+                text.AppendLine(error.Msg);
+            }
+
+            return text.ToString();
         }
     }
 }

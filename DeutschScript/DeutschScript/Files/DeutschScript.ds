@@ -1,11 +1,8 @@
 leer haupt [ ] <<
+
      alle a , b .
 
      a <- 10 + b .
-
-     a <- #teste string# .
-
-     b <- T .
-
+   
      c <- 3.4 + a .
 >>

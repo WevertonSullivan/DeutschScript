@@ -1,6 +1,8 @@
 ﻿using ConsoleHotKey;
 using LexicalAnalyzer;
+using SyntaticParser;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace DeutschScript
@@ -8,26 +10,49 @@ namespace DeutschScript
     class Program
     {
 
-        static string script = "";        
+        static string script = "";
+        static ParserSyntatic parserSyntatic;
+        static List<Token> tokens;
+        static ParserLexical parserLexical;
 
         static void Main(string[] args)
         {
-            ParserLexical parserLexical = new ParserLexical();
-
-            //while (true)
-            //{
-            //    Header();
-            //    Console.Write(script);
-            //    script += Console.ReadLine();
-            //    script += "\n";
-            //    saveScript();
-            //}
-
-            //Console.WriteLine("Saindo");
-            //Console.ReadKey();
+            parserLexical = new ParserLexical();
             string url = @"F:\Projetos\DeutschScript\DeutschScript\DeutschScript\Files\DeutschScript.ds";
             StreamReader file = new StreamReader(url);
-            ParserLexical.parser(file).ToString();
+            tokens = parserLexical.parser(file);
+
+            if (parserLexical.inError())
+            {
+                Console.WriteLine(parserLexical.Errors);
+                return;
+            }
+            else
+            {
+                foreach (Token token in tokens)
+                {
+                    Console.WriteLine(token.Image + "->" + token.Kind);
+                }
+            }
+
+            Console.WriteLine();
+
+
+            parserSyntatic = new ParserSyntatic(tokens);
+            parserSyntatic.parse();
+
+            if (parserSyntatic.inError())
+            {
+                Console.Write(parserSyntatic.errorsToString());
+                //return;
+            }
+            else
+            {
+
+                Console.WriteLine("Sucesso...");
+            }
+
+
             Console.Read();
         }
 

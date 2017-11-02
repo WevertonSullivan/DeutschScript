@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Errors</RootNamespace>
     <AssemblyName>Errors</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LexicalAnalyzer\LexicalAnalyzer.csproj">
-      <Project>{51591A93-E13E-41F3-8C1B-4E8A2646B56F}</Project>
+      <Project>{51591a93-e13e-41f3-8c1b-4e8a2646b56f}</Project>
       <Name>LexicalAnalyzer</Name>
     </ProjectReference>
   </ItemGroup>

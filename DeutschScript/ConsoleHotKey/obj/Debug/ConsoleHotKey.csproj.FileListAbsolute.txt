@@ -3,3 +3,8 @@ F:\Projetos\DeutschScript\ConsoleHotKey\bin\Debug\ConsoleHotKey.pdb
 F:\Projetos\DeutschScript\ConsoleHotKey\obj\Debug\ConsoleHotKey.csprojResolveAssemblyReference.cache
 F:\Projetos\DeutschScript\ConsoleHotKey\obj\Debug\ConsoleHotKey.dll
 F:\Projetos\DeutschScript\ConsoleHotKey\obj\Debug\ConsoleHotKey.pdb
+F:\Projetos\DeutschScript\DeutschScript\ConsoleHotKey\bin\Debug\ConsoleHotKey.dll
+F:\Projetos\DeutschScript\DeutschScript\ConsoleHotKey\bin\Debug\ConsoleHotKey.pdb
+F:\Projetos\DeutschScript\DeutschScript\ConsoleHotKey\obj\Debug\ConsoleHotKey.csproj.CoreCompileInputs.cache
+F:\Projetos\DeutschScript\DeutschScript\ConsoleHotKey\obj\Debug\ConsoleHotKey.dll
+F:\Projetos\DeutschScript\DeutschScript\ConsoleHotKey\obj\Debug\ConsoleHotKey.pdb

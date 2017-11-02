@@ -2,3 +2,8 @@ F:\Projetos\DeutschScript\SemanticParser\bin\Debug\SemanticParser.dll
 F:\Projetos\DeutschScript\SemanticParser\bin\Debug\SemanticParser.pdb
 F:\Projetos\DeutschScript\SemanticParser\obj\Debug\SemanticParser.dll
 F:\Projetos\DeutschScript\SemanticParser\obj\Debug\SemanticParser.pdb
+F:\Projetos\DeutschScript\DeutschScript\SemanticParser\bin\Debug\SemanticParser.dll
+F:\Projetos\DeutschScript\DeutschScript\SemanticParser\bin\Debug\SemanticParser.pdb
+F:\Projetos\DeutschScript\DeutschScript\SemanticParser\obj\Debug\SemanticParser.csproj.CoreCompileInputs.cache
+F:\Projetos\DeutschScript\DeutschScript\SemanticParser\obj\Debug\SemanticParser.dll
+F:\Projetos\DeutschScript\DeutschScript\SemanticParser\obj\Debug\SemanticParser.pdb

@@ -7,12 +7,20 @@ namespace LexicalAnalyzer
     public class ParserLexical
     {
 
+        List<string> errors = new List<string>();
+
+        public List<string> Errors { get => errors; set => errors = value; }
+
+        int testerInt;
+        float testerFloat;
+        bool testerBool;
+
         /// <summary>
         /// Realiza a verificação léxica de um fonte Deutsch Script.
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
-        public static List<Token> parser(StreamReader source)
+        public List<Token> parser(StreamReader source)
         {
             try
             {
@@ -122,7 +130,7 @@ namespace LexicalAnalyzer
                             };
                             tokens.Add(token);
                         }
-                        else if (Class.CLI.Equals(wordDealt))
+                        else if (int.TryParse(wordDealt, out testerInt))
                         {
                             token = new Token()
                             {
@@ -146,7 +154,7 @@ namespace LexicalAnalyzer
                             };
                             tokens.Add(token);
                         }
-                        else if (Class.CLR.Equals(wordDealt))
+                        else if (float.TryParse(wordDealt, out testerFloat))
                         {
                             token = new Token()
                             {
@@ -158,7 +166,7 @@ namespace LexicalAnalyzer
                             };
                             tokens.Add(token);
                         }
-                        else if (Class.CLL.Equals(wordDealt))
+                        else if (bool.TryParse(wordDealt, out testerBool))
                         {
                             token = new Token()
                             {
@@ -182,6 +190,10 @@ namespace LexicalAnalyzer
                             };
                             tokens.Add(token);
                         }
+                        else if (!string.IsNullOrEmpty(word))
+                        {
+                            errors.Add("Lexema " + word + "não classificado.");
+                        }
                     }
 
                 }
@@ -202,6 +214,11 @@ namespace LexicalAnalyzer
             {
                 throw ex;
             }
+        }
+
+        public bool inError()
+        {
+            return (errors.Count > 0 ? true : false);
         }
     }
 }
