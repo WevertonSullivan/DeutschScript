@@ -1,0 +1,5 @@
+F:\Projetos\DeutschScript\DeutschScript\Common\bin\Debug\Common.dll
+F:\Projetos\DeutschScript\DeutschScript\Common\bin\Debug\Common.pdb
+F:\Projetos\DeutschScript\DeutschScript\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+F:\Projetos\DeutschScript\DeutschScript\Common\obj\Debug\Common.dll
+F:\Projetos\DeutschScript\DeutschScript\Common\obj\Debug\Common.pdb

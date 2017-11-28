@@ -51,9 +51,9 @@
     <None Include="Files\DeutschScript.ds" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConsoleHotKey\ConsoleHotKey.csproj">
-      <Project>{1251a0cf-b90f-4f3f-9151-3dcc321556c3}</Project>
-      <Name>ConsoleHotKey</Name>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{B4C3C970-1B7B-4F3C-BDAD-69287D5A8E05}</Project>
+      <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\LexicalAnalyzer\LexicalAnalyzer.csproj">
       <Project>{51591a93-e13e-41f3-8c1b-4e8a2646b56f}</Project>

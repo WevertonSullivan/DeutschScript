@@ -1,6 +1,8 @@
 F:\Projetos\DeutschScript\DeutschScript\Errors\bin\Debug\Errors.dll
 F:\Projetos\DeutschScript\DeutschScript\Errors\bin\Debug\Errors.pdb
+F:\Projetos\DeutschScript\DeutschScript\Errors\bin\Debug\Common.dll
 F:\Projetos\DeutschScript\DeutschScript\Errors\bin\Debug\LexicalAnalyzer.dll
+F:\Projetos\DeutschScript\DeutschScript\Errors\bin\Debug\Common.pdb
 F:\Projetos\DeutschScript\DeutschScript\Errors\bin\Debug\LexicalAnalyzer.pdb
 F:\Projetos\DeutschScript\DeutschScript\Errors\obj\Debug\Errors.csprojResolveAssemblyReference.cache
 F:\Projetos\DeutschScript\DeutschScript\Errors\obj\Debug\Errors.csproj.CoreCompileInputs.cache

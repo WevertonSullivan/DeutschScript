@@ -5,6 +5,9 @@ F:\Projetos\DeutschScript\LexicalAnalyzer\obj\Debug\LexicalAnalyzer.dll
 F:\Projetos\DeutschScript\LexicalAnalyzer\obj\Debug\LexicalAnalyzer.pdb
 F:\Projetos\DeutschScript\DeutschScript\LexicalAnalyzer\bin\Debug\LexicalAnalyzer.dll
 F:\Projetos\DeutschScript\DeutschScript\LexicalAnalyzer\bin\Debug\LexicalAnalyzer.pdb
+F:\Projetos\DeutschScript\DeutschScript\LexicalAnalyzer\bin\Debug\Common.dll
+F:\Projetos\DeutschScript\DeutschScript\LexicalAnalyzer\bin\Debug\Common.pdb
+F:\Projetos\DeutschScript\DeutschScript\LexicalAnalyzer\obj\Debug\LexicalAnalyzer.csprojResolveAssemblyReference.cache
 F:\Projetos\DeutschScript\DeutschScript\LexicalAnalyzer\obj\Debug\LexicalAnalyzer.csproj.CoreCompileInputs.cache
 F:\Projetos\DeutschScript\DeutschScript\LexicalAnalyzer\obj\Debug\LexicalAnalyzer.dll
 F:\Projetos\DeutschScript\DeutschScript\LexicalAnalyzer\obj\Debug\LexicalAnalyzer.pdb

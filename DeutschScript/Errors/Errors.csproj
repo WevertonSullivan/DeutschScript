@@ -45,6 +45,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{B4C3C970-1B7B-4F3C-BDAD-69287D5A8E05}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LexicalAnalyzer\LexicalAnalyzer.csproj">
       <Project>{51591a93-e13e-41f3-8c1b-4e8a2646b56f}</Project>
       <Name>LexicalAnalyzer</Name>

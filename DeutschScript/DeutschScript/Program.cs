@@ -1,4 +1,4 @@
-﻿using ConsoleHotKey;
+﻿using Common;
 using LexicalAnalyzer;
 using SyntaticParser;
 using System;
@@ -54,31 +54,6 @@ namespace DeutschScript
 
 
             Console.Read();
-        }
-
-        static void HotKeyManager_HotKeyPressed(object sender, HotKeyEventArgs e)
-        {
-            if (e.Modifiers.ToString() == "Control" && e.Key.ToString() == "S")
-            {
-                string name = FileName();
-                bool save = false;
-                do
-                {
-                    save = ValidateFile(name);
-                    if (!save)
-                        name = FileName();
-
-                } while (!save);
-
-                System.IO.File.WriteAllText(@"~Files/" + name + ".ds", script);
-                Console.WriteLine("Salvar");
-            }
-            else if (e.Modifiers.ToString() == "Control" && e.Key.ToString() == "Q")
-            {
-                Console.Write(script);
-                Console.ReadKey();
-                Environment.Exit(1);
-            }
         }
 
         static void Header()

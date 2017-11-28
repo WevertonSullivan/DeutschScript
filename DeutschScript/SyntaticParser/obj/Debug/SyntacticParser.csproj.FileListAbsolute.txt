@@ -5,8 +5,10 @@ F:\Projetos\DeutschScript\SyntaticParser\obj\Debug\SyntaticParser.dll
 F:\Projetos\DeutschScript\SyntaticParser\obj\Debug\SyntaticParser.pdb
 F:\Projetos\DeutschScript\DeutschScript\SyntaticParser\bin\Debug\SyntaticParser.dll
 F:\Projetos\DeutschScript\DeutschScript\SyntaticParser\bin\Debug\SyntaticParser.pdb
+F:\Projetos\DeutschScript\DeutschScript\SyntaticParser\bin\Debug\Common.dll
 F:\Projetos\DeutschScript\DeutschScript\SyntaticParser\bin\Debug\Errors.dll
 F:\Projetos\DeutschScript\DeutschScript\SyntaticParser\bin\Debug\LexicalAnalyzer.dll
+F:\Projetos\DeutschScript\DeutschScript\SyntaticParser\bin\Debug\Common.pdb
 F:\Projetos\DeutschScript\DeutschScript\SyntaticParser\bin\Debug\Errors.pdb
 F:\Projetos\DeutschScript\DeutschScript\SyntaticParser\bin\Debug\LexicalAnalyzer.pdb
 F:\Projetos\DeutschScript\DeutschScript\SyntaticParser\obj\Debug\SyntacticParser.csprojResolveAssemblyReference.cache

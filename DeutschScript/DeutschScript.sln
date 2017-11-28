@@ -9,11 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticParser", "SemanticP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LexicalAnalyzer", "LexicalAnalyzer\LexicalAnalyzer.csproj", "{51591A93-E13E-41F3-8C1B-4E8A2646B56F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleHotKey", "ConsoleHotKey\ConsoleHotKey.csproj", "{1251A0CF-B90F-4F3F-9151-3DCC321556C3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeutschScript", "DeutschScript\DeutschScript.csproj", "{75F4E160-8160-421E-A7CA-417F1E4046EF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Errors", "Errors\Errors.csproj", "{5D54A315-EB2F-4C19-8EA5-F4A0A8063AFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{B4C3C970-1B7B-4F3C-BDAD-69287D5A8E05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +33,6 @@ Global
 		{51591A93-E13E-41F3-8C1B-4E8A2646B56F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51591A93-E13E-41F3-8C1B-4E8A2646B56F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51591A93-E13E-41F3-8C1B-4E8A2646B56F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1251A0CF-B90F-4F3F-9151-3DCC321556C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1251A0CF-B90F-4F3F-9151-3DCC321556C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1251A0CF-B90F-4F3F-9151-3DCC321556C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1251A0CF-B90F-4F3F-9151-3DCC321556C3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{75F4E160-8160-421E-A7CA-417F1E4046EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{75F4E160-8160-421E-A7CA-417F1E4046EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75F4E160-8160-421E-A7CA-417F1E4046EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{5D54A315-EB2F-4C19-8EA5-F4A0A8063AFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D54A315-EB2F-4C19-8EA5-F4A0A8063AFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D54A315-EB2F-4C19-8EA5-F4A0A8063AFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4C3C970-1B7B-4F3C-BDAD-69287D5A8E05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4C3C970-1B7B-4F3C-BDAD-69287D5A8E05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4C3C970-1B7B-4F3C-BDAD-69287D5A8E05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4C3C970-1B7B-4F3C-BDAD-69287D5A8E05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

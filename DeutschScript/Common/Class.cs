@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace LexicalAnalyzer
+namespace Common
 {
-    class Class
+    public class Class
     {
         public static List<string> PR = new List<string>()
         {"$","leer", "show", "lesen", "wenn", "sonst", "zum", "out","#"};

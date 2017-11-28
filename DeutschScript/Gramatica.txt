@@ -5,7 +5,7 @@
 <param>   ::= <tipo> id
 <comans>  ::= <decl> '.' | <atrib> '.' | <leitura> '.' | <escrita> '.' | <cond> | <laco> | <retorno> '.' | <chamada> '.'
 <decl>    ::= <tipo> <ids>
-<ids>     ::= <ids2>
+<ids>     ::= id <ids2>
 <ids2>    ::= ',' id <ids2> | $
 <atrib>   ::= id '<-' <exp>
 <exp>     ::= <operan> <exp2>

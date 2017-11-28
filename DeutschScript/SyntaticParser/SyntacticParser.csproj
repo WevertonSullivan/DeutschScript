@@ -44,6 +44,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{B4C3C970-1B7B-4F3C-BDAD-69287D5A8E05}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Errors\Errors.csproj">
       <Project>{5d54a315-eb2f-4c19-8ea5-f4a0a8063afe}</Project>
       <Name>Errors</Name>

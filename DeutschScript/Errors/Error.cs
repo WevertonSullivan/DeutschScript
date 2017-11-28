@@ -1,4 +1,5 @@
-﻿using LexicalAnalyzer;
+﻿using Common;
+using LexicalAnalyzer;
 
 namespace Errors
 {
