@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Common
 {
     public class Symbol
     {
+        string imagem, escopo, tipo, natureza;
+        List<Symbol> parametros;
     }
 }

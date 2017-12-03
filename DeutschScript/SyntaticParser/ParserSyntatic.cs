@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Errors;
 using Common;
+using System;
 
 namespace SyntaticParser
 {
@@ -12,6 +13,7 @@ namespace SyntaticParser
         private Token token;
         private int controlToken;
         private List<Error> errors = new List<Error>();
+        private Node tree = new Node();
 
         public ParserSyntatic(List<Token> tokens)
         {
@@ -23,43 +25,61 @@ namespace SyntaticParser
         public void parse()
         {
             readToken();
-            _funcs();
+            tree.addIssue(_funcs());
+
+            Console.Write(new Node().printTree(tree));
+            Console.ReadLine();
         }
 
         /// <summary>
         /// <funcs>    ::= <func> <funcs> | 
         /// </summary>
-        private void _funcs()
+        private Node _funcs()
         {
+            Node node = new Node();
             if (token.Image == "alle" || token.Image == "leer" || token.Image == "text" || token.Image == "real" || token.Image == "logisch")
             {
-                _func();
-                _funcs();
+                node.Token = token;
+                node.Type = "funcs";
+                node.addIssue(_func());
+                node.addIssue(_funcs());
             }
+
+            return node;
         }
 
         /// <summary>
         /// <func>    ::= <tipo> id '[' <params> ']' '<<' <comans> '>>'
         /// </summary>
-        private void _func()
+        private Node _func()
         {
-            _tipo();
+            Node node = new Node();
+            node.addIssue(_tipo());
+
             if (token.Kind == "ID")
             {
                 readToken();
                 if (token.Image == "[")
                 {
+                    node.addIssue(new Node(token, "func"));
+
                     readToken();
-                    _params();
+                    node.addIssue(_params());
+
                     if (token.Image == "]")
                     {
+                        node.addIssue(new Node(token, "func"));
+
                         readToken();
                         if (token.Image == "<<")
                         {
+                            node.addIssue(new Node(token, "func"));
+
                             readToken();
-                            _comans();
+                            node.addIssue(_comans());
                             if (token.Image == ">>")
                             {
+                                node.addIssue(new Node(token, "func"));
                                 readToken();
                             }
                             else
@@ -86,104 +106,130 @@ namespace SyntaticParser
             {
                 errors.Add(new Error("Erro ao validar token, esperado: {id}.", "Classe{ID}", token, "SyntaticError"));
             }
+
+            return node;
         }
 
         /// <summary>
         /// <tipo>    ::= 'alle' | 'leer' | 'text' | 'real' | 'logisch'
         /// </summary>
-        private void _tipo()
+        private Node _tipo()
         {
+            Node node = new Node();
             if (token.Image == "alle")
             {
+                node.addIssue(new Node(token, "tipo"));
                 readToken();
             }
             else if (token.Image == "leer")
             {
+                node.addIssue(new Node(token, "tipo"));
                 readToken();
             }
             else if (token.Image == "text")
             {
+                node.addIssue(new Node(token, "tipo"));
                 readToken();
             }
             else if (token.Image == "real")
             {
+                node.addIssue(new Node(token, "tipo"));
                 readToken();
             }
             else if (token.Image == "logisch")
             {
+                node.addIssue(new Node(token, "tipo"));
                 readToken();
             }
             else
             {
                 errors.Add(new Error("Erro ao validar token, esperado: {alle, leer, text, real, logisch}.", "alle || leer || text || real || logisch", token, "SyntaticError"));
             }
+
+            return node;
         }
 
         /// <summary>
         /// <params>  ::= <param> <params2> | 
         /// </summary>
-        private void _params()
+        private Node _params()
         {
+            Node node = new Node();
             if (token.Image == "alle" || token.Image == "leer" || token.Image == "text" || token.Image == "real" || token.Image == "logisch")
             {
-                _param();
-                _params2();
+                node.addIssue(new Node(token, "params"));
+                node.addIssue(_param());
+                node.addIssue(_params2());
             }
+            return node;
         }
 
         /// <summary>
         /// <params2> ::= ',' <param> <params2> |
         /// </summary>
-        private void _params2()
+        private Node _params2()
         {
+            Node node = new Node();
             if (token.Image == ",")
             {
+                node.addIssue(new Node(token, "params2"));
+
                 readToken();
-                _param();
-                _params2();
+                node.addIssue(_param());
+                node.addIssue(_params2());
 
             }
 
-
+            return node;
         }
 
         /// <summary>
         /// <param>   ::= <tipo> id
         /// </summary>
-        private void _param()
+        private Node _param()
         {
-            _tipo();
+            Node node = new Node();
+            node.addIssue(_tipo());
+
             if (token.Kind == "ID")
             {
+                node.addIssue(new Node(token, "param"));
                 readToken();
 
             }
+            return node;
         }
 
         /// <summary>
         /// <comans>  ::= <coman> <comans> |
         /// </summary>
-        private void _comans()
+        private Node _comans()
         {
+            Node node = new Node();
             if (token.Image == "alle" || token.Image == "leer" || token.Image == "text" || token.Image == "real" || token.Image == "logisch" ||
                 token.Kind == "ID" || token.Image == "lessen" || token.Image == "show" || token.Image == "wenn" || token.Image == "zum" || token.Image == "out")
             {
-                _coman();
-                _comans();
+                node.addIssue(new Node(token, "comans"));
+                node.addIssue(_coman());
+                node.addIssue(_comans());
 
             }
+
+            return node;
         }
 
         /// <summary>
         /// <coman>   ::= <decl> '.' | <atrib> '.' | <leitura> '.' | <escrita> '.' | <cond> | <laco> | <retorno> '.' | <chamada> '.'
         /// </summary>
-        private void _coman()
+        private Node _coman()
         {
+            Node node = new Node();
             if (token.Image == "alle" || token.Image == "leer" || token.Image == "text" || token.Image == "real" || token.Image == "logisch")
             {
-                _decl();
+                node.addIssue(_decl());
                 if (token.Image == ".")
                 {
+                    node.addIssue(new Node(token, "coman"));
                     readToken();
 
                 }
@@ -196,11 +242,12 @@ namespace SyntaticParser
             {
                 if (lookaHead().Image == "<-")
                 {
-                    _atrib();
+
+                    node.addIssue(_atrib());
                     if (token.Image == ".")
                     {
+                        node.addIssue(new Node(token, "coman"));
                         readToken();
-
                     }
                     else
                     {
@@ -209,9 +256,10 @@ namespace SyntaticParser
                 }
                 else if (lookaHead().Image == "[")
                 {
-                    _chamada();
+                    node.addIssue(_chamada());
                     if (token.Image == ".")
                     {
+                        node.addIssue(new Node(token, "coman"));
                         readToken();
 
                     }
@@ -227,9 +275,12 @@ namespace SyntaticParser
             }
             else if (token.Image == "lessen")
             {
-                _leitura();
+                node.addIssue(new Node(token, "coman"));
+                node.addIssue(_leitura());
+
                 if (token.Image == ".")
                 {
+                    node.addIssue(new Node(token, "."));
                     readToken();
                 }
                 else
@@ -239,9 +290,12 @@ namespace SyntaticParser
             }
             else if (token.Image == "show")
             {
-                _escrita();
+                node.addIssue(new Node(token, "coman"));
+                node.addIssue(_escrita());
+
                 if (token.Image == ".")
                 {
+                    node.addIssue(new Node(token, "coman"));
                     readToken();
                 }
                 else
@@ -251,17 +305,21 @@ namespace SyntaticParser
             }
             else if (token.Image == "wenn")
             {
-                _cond();
+                node.addIssue(new Node(token, "coman"));
+                node.addIssue(_cond());
             }
             else if (token.Image == "zum")
             {
-                _laco();
+                node.addIssue(new Node(token, "coman"));
+                node.addIssue(_laco());
             }
             else if (token.Image == "out")
             {
-                _retorno();
+                node.addIssue(new Node(token, "coman"));
+                node.addIssue(_retorno());
                 if (token.Image == ".")
                 {
+                    node.addIssue(new Node(token, "coman"));
                     readToken();
                 }
                 else
@@ -274,64 +332,81 @@ namespace SyntaticParser
                 errors.Add(new Error("Erro ao validar token, esperado: {alle, leer, text, real, logisch, ID, lessen, show, wenn, zum ou out}.", "{alle, leer, text, real, logisch, ID, lessen, show, wenn, zum ou out}", token, "SyntaticError"));
 
             }
+            return node;
         }
 
         /// <summary>
         /// <decl>    ::= <tipo> <ids>
         /// </summary>
-        private void _decl()
+        private Node _decl()
         {
-            _tipo();
-            _ids();
-
+            Node node = new Node();
+            node.addIssue(_tipo());
+            node.addIssue(_ids());
+            return node;
         }
 
         /// <summary>
         /// <ids>     ::= id <ids2>
         /// </summary>
-        private void _ids()
+        private Node _ids()
         {
+            Node node = new Node();
             if (token.Kind == "ID")
             {
-                readToken();
-                _ids2();
+                node.addIssue(new Node(token, "ids"));
+               readToken();
+                node.addIssue(_ids2());
 
             }
+
+            return node;
         }
 
         /// <summary>
         /// <ids2>    ::= ',' id <ids2> | 
         /// </summary>
-        private void _ids2()
+        private Node _ids2()
         {
+            Node node = new Node();
+
             if (token.Image == ",")
             {
+                node.addIssue(new Node(token, "ids2"));
                 readToken();
                 if (token.Kind == "ID")
                 {
+                    node.addIssue(new Node(token, "ids2"));
                     readToken();
-                    _ids2();
-
+                    node.addIssue(_ids2());
                 }
                 else
                 {
                     errors.Add(new Error("Erro ao validar token, esperado: {ID}.", "ID", token, "SyntaticError"));
                 }
             }
+
+            return node;
         }
 
         /// <summary>
         /// <atrib>   ::= id '<-' <exp>
         /// </summary>
-        private void _atrib()
+        private Node _atrib()
         {
+            Node node = new Node();
             if (token.Kind == "ID")
             {
+                node.addIssue(new Node(token, "atrib"));
                 readToken();
+
                 if (token.Image == "<-")
                 {
+                    node.addIssue(new Node(token, "atrib"));
+
                     readToken();
-                    _exp();
+
+                    node.addIssue(_exp());
 
                 }
                 else
@@ -343,93 +418,113 @@ namespace SyntaticParser
             {
                 errors.Add(new Error("Erro ao validar token, esperado: {ID}.", "ID", token, "SyntaticError"));
             }
+
+            return node;
         }
 
         /// <summary>
         /// <exp>     ::= <operan> <exp2>
         /// </summary>
-        private void _exp()
+        private Node _exp()
         {
-            _operan();
-            _exp2();
-
-
+            Node node = new Node();
+            node.addIssue(_operan());
+            node.addIssue(_exp2());
+            return node;
         }
 
         /// <summary>
         /// <exp2>    ::=  | <op> <operan>
         /// </summary>
-        private void _exp2()
+        private Node _exp2()
         {
-            //vazio?
+
+            Node node = new Node();
+
             if (token.Image == "+" || token.Image == "-" || token.Image == "*" || token.Image == "/" || token.Image == "&"
              || token.Image == "|" || token.Image == ">" || token.Image == "<" || token.Image == ">=" || token.Image == "<="
              || token.Image == "=" || token.Image == "<>" || token.Image == "@")
             {
-                _op();
-                _operan();
-
+                node.addIssue(_op());
+                node.addIssue(_operan());
             }
+            return node;
         }
 
         /// <summary>
         /// <operan>  ::= id | cli | clr | cls | cll |  <chamada>
         /// </summary>
-        private void _operan()
+        private Node _operan()
         {
+            Node node = new Node();
+
             if (token.Kind == "ID")
             {
                 if (lookaHead().Image == "[")
                 {
-                    _chamada();
+                    node.addIssue(_chamada());
                 }
                 else
                 {
+                    node.addIssue(new Node(token, "operan"));
                     readToken();
                 }
             }
             else if (token.Kind == "CLI" || token.Kind == "CLS" || token.Kind == "CLL" || token.Kind == "CLR")
             {
+                node.addIssue(new Node(token, "operan"));
                 readToken();
             }
             else
             {
                 errors.Add(new Error("Erro ao validar token, esperado: {ID, CLI, CLS ou CLL}.", "{ID, CLI, CLS, CLL}", token, "SyntaticError"));
             }
+            return node;
         }
 
         /// <summary>
         /// <op>      ::= '+' | '-' | '*' | '/' | '&' | '|' | '>' | '<' | '>=' | '<=' | '=' | '<>' | '@'
         /// </summary>
-        private void _op()
+        private Node _op()
         {
+            Node node = new Node();
+
             if (token.Image == "+" || token.Image == "-" || token.Image == "*" || token.Image == "/" || token.Image == "&"
             || token.Image == "|" || token.Image == ">" || token.Image == "<" || token.Image == ">=" || token.Image == "<="
             || token.Image == "=" || token.Image == "<>" || token.Image == "@")
             {
+                node.addIssue(new Node(token, "op"));
                 readToken();
 
             }
+            return node;
         }
 
         /// <summary>
         /// <leitura> ::= 'lessen' '[' id ']'
         /// </summary>
-        private void _leitura()
+        private Node _leitura()
         {
+            Node node = new Node();
             if (token.Image == "lessen")
             {
+                node.addIssue(new Node(token, "leitura"));
                 readToken();
+
                 if (token.Image == "[")
                 {
+                    node.addIssue(new Node(token, "leitura"));
                     readToken();
+
                     if (token.Kind == "ID")
                     {
+                        node.addIssue(new Node(token, "leitura"));
                         readToken();
+
                         if (token.Image == "]")
                         {
+                            node.addIssue(new Node(token, "leitura"));
                             readToken();
-
                         }
                         else
                         {
@@ -450,22 +545,33 @@ namespace SyntaticParser
             {
                 errors.Add(new Error("Erro ao validar token, esperado: {lessen}", "lessen", token, "SyntaticError"));
             }
+
+            return node;
         }
 
         /// <summary>
         /// <escrita> ::= 'show' '[' <exp> ']'
         /// </summary>
-        private void _escrita()
+        private Node _escrita()
         {
+            Node node = new Node();
+
             if (token.Image == "show")
             {
+                node.addIssue(new Node(token, "escrita"));
                 readToken();
+
                 if (token.Image == "[")
                 {
+                    node.addIssue(new Node(token, "escrita"));
                     readToken();
-                    _exp();
+
+                    node.addIssue(_exp());
+
                     if (token.Image == "]")
                     {
+                        node.addIssue(new Node(token, "escrita"));
+
                         readToken();
 
                     }
@@ -483,31 +589,45 @@ namespace SyntaticParser
             {
                 errors.Add(new Error("Erro ao validar token, esperado: {show}", "show", token, "SyntaticError"));
             }
+            return node;
         }
 
         /// <summary>
         /// <cond>    ::= 'wenn' '[' <exp> ']' '<<' <comans> '>>' <senao>
         /// </summary>
-        private void _cond()
+        private Node _cond()
         {
+            Node node = new Node();
             if (token.Image == "wenn")
             {
+                node.addIssue(new Node(token, "cond"));
                 readToken();
+
                 if (token.Image == "[")
                 {
+                    node.addIssue(new Node(token, "cond"));
+
                     readToken();
-                    _exp();
+
+                    node.addIssue(_exp());
+
                     if (token.Image == "]")
                     {
+                        node.addIssue(new Node(token, "cond"));
                         readToken();
+
                         if (token.Image == "<<")
                         {
+                            node.addIssue(new Node(token, "cond"));
+
                             readToken();
-                            _comans();
+
+                            node.addIssue(_comans());
                             if (token.Image == ">>")
                             {
+                                node.addIssue(new Node(token, "cond"));
                                 readToken();
-                                _senao();
+                                node.addIssue(_senao());
                             }
                             else { errors.Add(new Error("Erro ao validar token, esperado: {>>}", ">>", token, "SyntaticError")); }
                         }
@@ -518,22 +638,30 @@ namespace SyntaticParser
                 else { errors.Add(new Error("Erro ao validar token, esperado: {[}", "[", token, "SyntaticError")); }
             }
             else { errors.Add(new Error("Erro ao validar token, esperado: {wenn}", "wenn", token, "SyntaticError")); }
+
+            return node;
         }
 
         /// <summary>
         /// <senao>   ::=  | 'sont' '<<' <comans> '>>'
         /// </summary>
-        private void _senao()
+        private Node _senao()
         {
+            Node node = new Node();
             if (token.Image == "sonst")
             {
+                node.addIssue(new Node(token, "senao"));
+
                 readToken();
                 if (token.Image == "<<")
                 {
+                    node.addIssue(new Node(token, "senao"));
+
                     readToken();
-                    _comans();
+                    node.addIssue(_comans());
                     if (token.Image == ">>")
                     {
+                        node.addIssue(new Node(token, "senao"));
                         readToken();
 
                     }
@@ -541,31 +669,43 @@ namespace SyntaticParser
                 }
                 else { errors.Add(new Error("Erro ao validar token, esperado: {<<}", "<<", token, "SyntaticError")); }
             }
+            return node;
         }
 
         /// <summary>
         /// <laco>    ::= 'zum' '[' <exp> ']' '<<' <comans> '>>'
         /// </summary>
-        private void _laco()
+        private Node _laco()
         {
+            Node node = new Node();
             if (token.Image == "zum")
             {
+                node.addIssue(new Node(token, "laco"));
+
                 readToken();
                 if (token.Image == "[")
                 {
+                    node.addIssue(new Node(token, "laco"));
                     readToken();
-                    _exp();
+
+                    node.addIssue(_exp());
+
                     if (token.Image == "]")
                     {
+                        node.addIssue(new Node(token, "laco"));
                         readToken();
+
                         if (token.Image == "<<")
                         {
+                            node.addIssue(new Node(token, "laco"));
                             readToken();
-                            _comans();
+
+                            node.addIssue(_comans());
+
                             if (token.Image == ">>")
                             {
+                                node.addIssue(new Node(token, "laco"));
                                 readToken();
-
                             }
                             else { errors.Add(new Error("Erro ao validar token, esperado: {>>}", ">>", token, "SyntaticError")); }
                         }
@@ -576,73 +716,91 @@ namespace SyntaticParser
                 else { errors.Add(new Error("Erro ao validar token, esperado: {[}", "[", token, "SyntaticError")); }
             }
             else { errors.Add(new Error("Erro ao validar token, esperado: {zum}", "zum", token, "SyntaticError")); }
+
+            return node;
         }
 
         /// <summary>
         /// <retorno> ::= 'out' <exp>
         /// </summary>
-        private void _retorno()
+        private Node _retorno()
         {
+            Node node = new Node();
             if (token.Image == "out")
             {
+                node.addIssue(new Node(token, "retorno"));
                 readToken();
-                _exp();
+                node.addIssue(_exp());
             }
             else
             {
                 errors.Add(new Error("Erro ao validar token, esperado: {out}", "out", token, "SyntaticError"));
             }
+            return node;
         }
 
         /// <summary>
         /// <chamada> ::= id '[' <args> ']'
         /// </summary>
-        private void _chamada()
+        private Node _chamada()
         {
+            Node node = new Node();
             if (token.Kind == "ID")
             {
+                node.addIssue(new Node(token, "chamada"));
                 readToken();
                 if (token.Image == "[")
                 {
+                    node.addIssue(new Node(token, "chamada"));
+
                     readToken();
-                    _args();
+
+                    node.addIssue(_args());
                     if (token.Image == "]")
                     {
+                        node.addIssue(new Node(token, "chamada"));
                         readToken();
-
                     }
                     else { errors.Add(new Error("Erro ao validar token, esperado: {]}", "]", token, "SyntaticError")); }
                 }
                 else { errors.Add(new Error("Erro ao validar token, esperado: {[}", "[", token, "SyntaticError")); }
             }
             else { errors.Add(new Error("Erro ao validar token, esperado: {ID}", "ID", token, "SyntaticError")); }
+            return node;
         }
 
         /// <summary>
         /// <args>    ::=  | <operan> <args2>
         /// </summary>
-        private void _args()
+        private Node _args()
         {
+            Node node = new Node();
+
             if (token.Kind == "ID" || token.Kind == "CLI" || token.Kind == "CLS" || token.Kind == "CLL" || token.Kind == "CLR")
             {
-                _operan();
-                _args2();
+                node.addIssue(_operan());
+                node.addIssue(_args2());
 
             }
+
+            return node;
         }
 
         /// <summary>
         /// <args2>   ::=  | ',' <operan> <args2>
         /// </summary>
-        private void _args2()
+        private Node _args2()
         {
+            Node node = new Node();
             if (token.Image == ",")
             {
+                node.addIssue(new Node(token, "args2"));
                 readToken();
-                _operan();
-                _args2();
+                node.addIssue(_operan());
+                node.addIssue(_args2());
 
             }
+            return node;
         }
 
         private void readToken()
@@ -664,7 +822,7 @@ namespace SyntaticParser
         {
             StringBuilder text = new StringBuilder();
 
-            foreach(Error error in errors)
+            foreach (Error error in errors)
             {
                 text.AppendLine(error.Msg);
             }
