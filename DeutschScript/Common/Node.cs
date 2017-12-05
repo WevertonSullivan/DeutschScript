@@ -8,23 +8,23 @@ namespace Common
 {
     public class Node
     {
-        private Node father = new Node();
         private List<Node> issues = new List<Node>();
-        private Token token = new Token();
+        private Token token;
         private string type;
         private StringBuilder treeImprint;
 
-        public Node Father { get => father; set => father = value; }
         public string Type { get => type; set => type = value; }
         public Token Token { get => token; set => token = value; }
 
-        public Node()
-        {
-        }
+        public Node() {}
 
-        public Node(Token token, string type)
+        public Node(string type)
         {
             this.type = type;
+        }
+
+        public Node(Token token)
+        {            
             this.token = token;
         }
 
@@ -47,6 +47,11 @@ namespace Common
             return issues[index];
         }
 
+        public List<Node> getIssues()
+        {
+            return this.issues;
+        }
+
         /// <summary>
         /// Imprime toda árvore em ordem
         /// </summary>
@@ -62,10 +67,22 @@ namespace Common
 
         private void printNo(string space, Node tree)
         {
-            treeImprint.AppendLine(space + tree.token.Image);
+            treeImprint.AppendLine(space + tree.ToString());
 
             foreach (Node node in tree.issues)
                 printNo(space + " ", node);
+        }
+
+        public override string ToString()
+        {
+            if (token == null)
+            {
+                return this.type;
+            }
+            else
+            {
+                return "(" + this.token.Image + ")";
+            }
         }
     }
 }

@@ -27,16 +27,6 @@ namespace DeutschScript
                 Console.WriteLine(parserLexical.Errors);
                 return;
             }
-            else
-            {
-                foreach (Token token in tokens)
-                {
-                    Console.WriteLine(token.Image + "->" + token.Kind);
-                }
-            }
-
-            Console.WriteLine();
-
 
             parserSyntatic = new ParserSyntatic(tokens);
             parserSyntatic.parse();
@@ -48,10 +38,25 @@ namespace DeutschScript
             }
             else
             {
+                Console.WriteLine("\n");
 
-                Console.WriteLine("Sucesso...");
+                for (int i = 0; i < tokens.Count; i++)
+                {
+                    Console.WriteLine(tokens[i].ToString());
+                }
+
+                Console.WriteLine("\n");
+
+                for (int i = 0; i < tokens.Count; i++)
+                {
+                    if (tokens[i].Index != -1)
+                    {
+                        Console.WriteLine(tokens[i].ToString());
+                    }
+                }
+
+                Console.WriteLine(new TableSymbol().ToString());
             }
-
 
             Console.Read();
         }

@@ -8,7 +8,7 @@ namespace Common
         {"$","leer", "show", "lesen", "wenn", "sonst", "zum", "out","#"};
 
         public static List<string> DE = new List<string>()
-        {"[","]","<<",">>","."};
+        {"[","]","<<",">>",".", ","};
 
         public static List<string> OPA = new List<string>()
         {"+", "-","*","/","<-" };
